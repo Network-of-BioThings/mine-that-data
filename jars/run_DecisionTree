@@ -1,1 +1,1 @@
-java -jar DecisionTree.jar -binarySplits true -confidence 0.3 -minNumObj 3 -numFolds 5 -reducedErrorPruning false -subTreeRaising false -unpruned false -useLaplace false -numIterations 5 -numCVFolds 10 -targetClassIndex 0 -dataFile /home/jkralj/mine-that-data/DecisionTree/weather.arff
+java -jar DecisionTree.jar -binarySplits true -confidence 0.3 -minNumObj 3 -numFolds 5 -reducedErrorPruning false -subTreeRaising false -unpruned false -useLaplace false -numIterations 5 -numCVFolds 10 -targetClassIndex 0 -dataFile weather.arff
