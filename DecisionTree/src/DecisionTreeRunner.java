@@ -69,7 +69,7 @@ public class DecisionTreeRunner {
             int classIndex = res.get("targetClassIndex");
 
             PrintWriter writer = new PrintWriter("Output.tsv", "UTF-8");
-            writer.println("Run\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error");
+            writer.println("Run\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
             for (int i=0; i<(Integer)res.get("numIterations"); i++){
                 eval.crossValidateModel(j48, data, (Integer)res.get("numCVFolds"), new Random());
                 double accuracy = (eval.correct()) / (eval.correct() + eval.incorrect());
