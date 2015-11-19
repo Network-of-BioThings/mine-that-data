@@ -98,7 +98,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/', passportConf.isAuthenticated, homeController.index);
+app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -118,6 +118,7 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 
 
 app.get('/portal', passportConf.isAuthenticated, userController.getPortal);
+app.get('/analysis', passportConf.isAuthenticated, userController.getAnalysis);
 /**
  * API examples routes.
  */

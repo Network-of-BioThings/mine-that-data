@@ -3,7 +3,11 @@
  * Home page.
  */
 exports.index = function(req, res) {
-  res.render('home', {
-    title: 'Home'
-  });
+  console.log(req.user);
+  if (req.user)
+    return res.redirect('/portal');
+  else
+    res.render('home', {
+      title: 'Home'
+    });
 };

@@ -281,12 +281,22 @@ exports.postReset = function(req, res, next) {
 };
 
 /**
- * GET /account
- * Profile page.
+ * GET /portal
+ * Portal page.
  */
 exports.getPortal = function(req, res) {
   res.render('account/portal', {
     title: 'My Portal'
+  });
+};
+
+/**
+ * GET /analysis
+ * Portal page.
+ */
+exports.getAnalysis = function(req, res) {
+  res.render('account/analysis', {
+    title: 'New Analysis'
   });
 };
 
