@@ -1,13 +1,11 @@
-
-import weka.classifiers.Classifier;
+import weka.core.converters.CSVLoader;
+import weka.core.converters.ConverterUtils.DataSource;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
+import java.io.File;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Random;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -40,6 +38,8 @@ public class DecisionTreeRunner {
         parser.addArgument("-unpruned").type(Boolean.class).help("Whether pruning is performed.").required(true);
         parser.addArgument("-useLaplace").type(Boolean.class).help("Whether counts at leaves are smoothed based on Laplace.").required(true);
 
+
+
         parser.addArgument("-numIterations").type(Integer.class).help("Number of iterations to perform").required(true);
         parser.addArgument("-numCVFolds").type(Integer.class).help("Number of folds to use in cross validation").required(true);
 
@@ -49,10 +49,19 @@ public class DecisionTreeRunner {
         try {
             Namespace res = parser.parseArgs(args);
 
-            BufferedReader datafile = readDataFile((String)res.get("dataFile"));
-//            BufferedReader datafile = readDataFile("/home/jkralj/IdeaProjects/DecisionTree/weather.arff");
+            // REMOVE THIS:
+//            BufferedReader datafile = readDataFile((String)res.get("dataFile"));
+//            Instances data = new Instances(datafile);
 
-            Instances data = new Instances(datafile);
+            // REPLACE WITH THIS:
+            CSVLoader loader = new CSVLoader();
+            File df = new File((String)res.get("dataFile"));
+            if (df.exists())
+            {
+                loader.setSource(df);
+            }
+            Instances data = loader.getDataSet();
+
             data.setClassIndex(data.numAttributes() - 1);
             Evaluation eval = new Evaluation(data);
 

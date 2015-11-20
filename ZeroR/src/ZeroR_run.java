@@ -2,16 +2,14 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.rules.ZeroR;
 import weka.core.Instances;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Random;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
+import weka.core.converters.CSVLoader;
 
 public class ZeroR_run {
 
@@ -38,10 +36,19 @@ public class ZeroR_run {
 
         try {
             Namespace res = parser.parseArgs(args);
+            // REMOVE THIS:
+//            BufferedReader datafile = readDataFile((String)res.get("dataFile"));
+//            Instances data = new Instances(datafile);
 
-            BufferedReader datafile = readDataFile((String)res.get("dataFile"));
+            // REPLACE WITH THIS:
+            CSVLoader loader = new CSVLoader();
+            File df = new File((String)res.get("dataFile"));
+            if (df.exists())
+            {
+                loader.setSource(df);
+            }
+            Instances data = loader.getDataSet();
 
-            Instances data = new Instances(datafile);
             data.setClassIndex(data.numAttributes() - 1);
             Evaluation eval = new Evaluation(data);
 
