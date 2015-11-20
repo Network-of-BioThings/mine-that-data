@@ -31,6 +31,7 @@ public class ZeroR_run {
         parser.addArgument("-numIterations").type(Integer.class).help("Number of iterations to perform").required(true);
         parser.addArgument("-numCVFolds").type(Integer.class).help("Number of folds to use in cross validation").required(true);
 
+        parser.addArgument("-analysisName").type(String.class).help("The name of the analysis").required(true);
         parser.addArgument("-targetClassIndex").type(Integer.class).help("The class used for FPR, TPR, ...").setDefault(1);
         parser.addArgument("-dataFile").type(String.class).help("The file to use");
 
@@ -57,11 +58,13 @@ public class ZeroR_run {
             int classIndex = res.get("targetClassIndex");
 
             PrintWriter writer = new PrintWriter("Output.tsv", "UTF-8");
-            writer.println("Run\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
+            writer.println("Analysis name\tRun\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
             for (int i=0; i<(Integer)res.get("numIterations"); i++){
                 eval.crossValidateModel(zeroR, data, (Integer)res.get("numCVFolds"), new Random());
                 double accuracy = (eval.correct()) / (eval.correct() + eval.incorrect());
-                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s", i,
+                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+                        res.get("analysisName"),
+                        i,
                         eval.correct(),
                         eval.incorrect(),
                         accuracy,

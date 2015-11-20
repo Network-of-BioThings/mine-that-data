@@ -39,6 +39,7 @@ public class kNN {
         parser.addArgument("-NNSearchAlgorithm").type(String.class).help("The nearest neighbour search algorithm to use").required(true);
         parser.addArgument("-windowSize").type(Integer.class).help("Gets the maximum number of instances allowed in the training pool. The addition of new instances above this value will result in old instances being removed. A value of 0 signifies no limit to the number of training instances.").required(true);
 
+        parser.addArgument("-analysisName").type(String.class).help("The name of the analysis").required(true);
         parser.addArgument("-numIterations").type(Integer.class).help("Number of iterations to perform").required(true);
         parser.addArgument("-numCVFolds").type(Integer.class).help("Number of folds to use in cross validation").required(true);
 
@@ -97,11 +98,13 @@ public class kNN {
             int classIndex = res.get("targetClassIndex");
 
             PrintWriter writer = new PrintWriter("Output.tsv", "UTF-8");
-            writer.println("Run\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
+            writer.println("Analysis name\tRun\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
             for (int i=0; i<(Integer)res.get("numIterations"); i++){
                 eval.crossValidateModel(knn, data, (Integer)res.get("numCVFolds"), new Random());
                 double accuracy = (eval.correct()) / (eval.correct() + eval.incorrect());
-                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s", i,
+                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+                        res.get("analysisName"),
+                        i,
                         eval.correct(),
                         eval.incorrect(),
                         accuracy,

@@ -29,17 +29,16 @@ public class DecisionTreeRunner {
 
     public static void main(String[] args) throws Exception {
         ArgumentParser parser = ArgumentParsers.newArgumentParser("Decision tree runner");
-//        parser.addArgument("-binarySplits").type(Boolean.class).help("Allow only binary splits").required(true);
-//        parser.addArgument("-confidence").type(Float.class).help("Confidence factor").required(true);
-//        parser.addArgument("-minNumObj").type(Integer.class).help("Minimum number of instances per leaf").required(true);
-//        parser.addArgument("-numFolds").type(Integer.class).help("Determines the amount of data used for reduced-error pruning. One fold is used for pruning, the rest for growing the tree.").required(true);
-//        parser.addArgument("-reducedErrorPruning").type(Boolean.class).help("Whether reduced-error pruning is used instead of C.4.5 pruning.").required(true);
-//        parser.addArgument("-subTreeRaising").type(Boolean.class).help(" Whether to consider the subtree raising operation when pruning.").required(true);
+        parser.addArgument("-binarySplits").type(Boolean.class).help("Allow only binary splits").required(true);
+        parser.addArgument("-confidence").type(Float.class).help("Confidence factor").required(true);
+        parser.addArgument("-minNumObj").type(Integer.class).help("Minimum number of instances per leaf").required(true);
+        parser.addArgument("-numFolds").type(Integer.class).help("Determines the amount of data used for reduced-error pruning. One fold is used for pruning, the rest for growing the tree.").required(true);
+        parser.addArgument("-reducedErrorPruning").type(Boolean.class).help("Whether reduced-error pruning is used instead of C.4.5 pruning.").required(true);
+        parser.addArgument("-subTreeRaising").type(Boolean.class).help(" Whether to consider the subtree raising operation when pruning.").required(true);
         parser.addArgument("-unpruned").type(Boolean.class).help("Whether pruning is performed.").required(true);
         parser.addArgument("-useLaplace").type(Boolean.class).help("Whether counts at leaves are smoothed based on Laplace.").required(true);
 
-
-
+        parser.addArgument("-analysisName").type(String.class).help("The name of the analysis").required(true);
         parser.addArgument("-numIterations").type(Integer.class).help("Number of iterations to perform").required(true);
         parser.addArgument("-numCVFolds").type(Integer.class).help("Number of folds to use in cross validation").required(true);
 
@@ -78,11 +77,13 @@ public class DecisionTreeRunner {
             int classIndex = res.get("targetClassIndex");
 
             PrintWriter writer = new PrintWriter("Output.tsv", "UTF-8");
-            writer.println("Run\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
+            writer.println("Analysis name\tRun\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
             for (int i=0; i<(Integer)res.get("numIterations"); i++){
                 eval.crossValidateModel(j48, data, (Integer)res.get("numCVFolds"), new Random());
                 double accuracy = (eval.correct()) / (eval.correct() + eval.incorrect());
-                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s", i,
+                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+                        res.get("analysisName"),
+                        i,
                         eval.correct(),
                         eval.incorrect(),
                         accuracy,
