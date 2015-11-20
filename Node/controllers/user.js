@@ -5,6 +5,7 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
 var secrets = require('../config/secrets');
+var shell = require('shelljs');
 
 /**
  * GET /login
@@ -294,10 +295,108 @@ exports.getPortal = function(req, res) {
  * GET /analysis
  * Portal page.
  */
-exports.getAnalysis = function(req, res) {
+exports.getNewAnalysis = function(req, res) {
   res.render('account/analysis', {
     title: 'New Analysis'
   });
+};
+
+/**
+ * POST /analysis
+ * Analysis form page.
+ */
+exports.postAnalysis = function(req, res) {
+  var userid = req.user._id;
+  var dir = '~/Desktop/bd2k/'+userid+'/';
+  var num = 0;
+  var exec = req.body.algorithm;
+  var params = "";
+  console.log(req.body);
+  console.log('user: '+userid);
+  async.series([
+    function(cbAsync){
+      shell.exec('mkdir '+dir, function(code, output) {
+        console.log('Exit code:', code);
+        console.log('Program output:', output);
+        cbAsync();
+      });
+    },
+    function(cbAsync){
+      console.log('command: ls -1 '+dir+' | wc -l');
+      shell.exec('ls -1 '+dir+' | wc -l', function(code, output) {
+        console.log('Exit code:', code);
+        console.log('Program output:', output);
+        num = output;
+        res.redirect('analysis/'+num.toString().trim());
+        cbAsync();
+      });
+    },
+    function(cbAsync){
+      console.log('command: mkdir '+dir.trim()+num.toString().trim());
+      shell.exec('mkdir mkdir '+dir.trim()+num.toString().trim(), function(code, output) {
+        console.log('Exit code:', code);
+        console.log('Program output:', output);
+        cbAsync();
+
+      });
+    },
+    function(cbAsync){
+      var script = '../scripts/submit.sh';
+      var command = 'sh '+script+' -u '+userid.toString()+' -n '+num.toString().trim()+' -t jar -p '+params+' '+ exec;
+      var done = '~/Desktop/bd2k/'+req.user._id.toString().trim()+'/'+num.toString().trim()+'/done';
+      var sleep = 'sleep 20;touch '+done;
+      console.log('command: '+sleep);
+      shell.exec(sleep, function(code, output) {
+        console.log('Exit code:', code);
+        console.log('Program output:', output);
+        if(code!=0){
+          return;
+        }
+        cbAsync();
+
+      });
+    }
+  ],
+  function asyncComplete(err) { // the "complete" callback of `async.waterfall`
+        if ( err ) { // there was an error with either `getTicker` or `writeTicker`
+            console.warn('Error ',err);
+        } else {
+            console.info('Successfully completed operation.');
+        }
+  });
+
+};
+
+/**
+ * GET /analysis
+ * Portal page.
+ */
+exports.getAnalysis = function(req, res) {
+  console.log(req.body);
+  var id = req.params.id;
+  async.series([
+    function(cbAsync){
+      var command = 'ls '+'~/Desktop/bd2k/'+req.user._id.toString().trim()+'/'+id+'/done';
+      console.log('command: '+command);
+      shell.exec(command, function(code, output) {
+        console.log('Exit code:', code);
+        console.log('Program output:', output);
+        if(code==0){
+          res.render('account/results'), {
+            title: 'Analysis Results',
+            taskid: id
+          };
+        }else{
+          res.render('account/analyzing', {
+            title: 'Analyzing',
+            taskid: id
+          });
+        }
+        cbAsync();
+
+      });
+    }
+  ])
 };
 
 /**

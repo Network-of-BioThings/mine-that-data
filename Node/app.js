@@ -118,7 +118,9 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 
 
 app.get('/portal', passportConf.isAuthenticated, userController.getPortal);
-app.get('/analysis', passportConf.isAuthenticated, userController.getAnalysis);
+app.get('/analysis', passportConf.isAuthenticated, userController.getNewAnalysis);
+app.get('/analysis/:id', passportConf.isAuthenticated, userController.getAnalysis);
+app.post('/analysis', passportConf.isAuthenticated, userController.postAnalysis);
 /**
  * API examples routes.
  */

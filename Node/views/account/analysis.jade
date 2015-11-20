@@ -3,3 +3,46 @@ extends ../layout
 block content
   .page-header
     h3 Analysis
+    form.form-horizontal(action='/analysis', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label.col-sm-3.control-label(for='algorithm') Algorithm
+        .col-sm-2
+          select.form-control(name='algorithm', id='algorithm')
+            option(id='a1') Algorithm 1
+            option(id='a2') Algorithm 2
+            option(id='a3') Algorithm 3
+      .form-group
+        label.col-sm-3.control-label(for='description') Description
+        .col-sm-7
+          textarea.form-control(rows='5', name='description', id='description')
+      .form-group
+        label.col-sm-3.control-label(for='dataset') Dataset
+        .col-sm-2
+          select.form-control(name='dataset', id='dataset')
+            option(id='d1') Dataset 1
+            option(id='d2') Dataset 2
+            option(id='d3') Dataset 3
+      .form-group
+        label.col-sm-3.control-label(for='iterations') Iterations
+        .col-sm-2
+          select.form-control(name='iterations', id='iterations')
+            - for (var i = 0; i < 1000; i+=10) {
+                option= i
+            - }
+      .form-group
+        label.col-sm-3.control-label(for='location') Parameter 1
+        .col-sm-2
+          input.form-control(type='number', name='p1', id='p1')
+      .form-group
+        label.col-sm-3.control-label(for='website') Parameter 2
+        .col-sm-2
+          input.form-control(type='number', name='p2', id='p2')
+      .form-group
+        label.col-sm-3.control-label(for='website') Parameter 3
+        .col-sm-2
+          input.form-control(type='number', name='p3', id='p3')
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            | Submit
