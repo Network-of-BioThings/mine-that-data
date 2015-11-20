@@ -42,8 +42,10 @@ block content
                 .form-group
                   label.col-sm-3.control-label(for='#{classifier}_#{value_name}') #{value_name}
                   .col-sm-2
-                    input.form-control(type='checkbox', name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
-              when "Select"
+                    select.form-control(name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
+                      option=true
+                      option=false
+              when "select"
                 .form-group
                   label.col-sm-3.control-label(for='#{classifier}_#{value_name}') #{value_name}
                   .col-sm-2

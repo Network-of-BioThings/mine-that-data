@@ -368,6 +368,16 @@ exports.getNewAnalysis = function(req, res) {
   });
 };
 
+function getJarParams(req){
+  var details = JSON.parse(fs.readFileSync("/home/jkralj/mine-that-data/configs/" + req.body.algorithm + ".JSON").toString());
+  var retStr = "java -jar " + req.body.algorithm
+  for (var value in details){
+    retStr = retStr + " -" + value + " "  + req.body[req.body.algorithm + "_" + value];
+  }
+  retStr = retStr + "-numCVFolds 10 -analysisName Test_name -targetClassIndex 0 -dataFile example_input.csv";
+  console.log(retStr);
+  return retStr;
+}
 /**
  * POST /analysis
  * Analysis form page.
@@ -379,6 +389,9 @@ exports.postAnalysis = function(req, res) {
   var exec = req.body.algorithm;
   var params = "";
   var json = {};
+
+  var jarParams=getJarParams(req);
+
   console.log('**************');
   console.log(req.body);
   console.log('user: '+userid);
