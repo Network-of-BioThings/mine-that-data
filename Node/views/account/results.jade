@@ -24,17 +24,15 @@ html
       div.dataTables_wrapper.center-block.col-sm-10
         table.table.table-striped.table-bordered(id='results')
           thead
-            tr
-              th First
-              th Second
-              th Third
+            - var headers = head
+            - for (var i = 0; i < headers.length; i++)
+                th=headers[i]
           tbody
-            - var objects = [{p1:1, p2:2, p3:3},{p1:4, p2:5, p3:6}]
-            - for (var i = 0; i < objects.length; i+=1)
+            - var objects = result
+            - for (var i = 0; i < objects.length; i++)
                 tr
-                  th=objects[i].p1
-                  th=objects[i].p2
-                  th=objects[i].p3
+                - for(var j = 0; j<objects[j].length; j++)
+                    td=objects[i][j]
 
 
       include ../partials/flash

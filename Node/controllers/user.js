@@ -6,6 +6,7 @@ var passport = require('passport');
 var User = require('../models/User');
 var secrets = require('../config/secrets');
 var shell = require('shelljs');
+var fs = require('fs');
 
 /**
  * GET /login
@@ -298,7 +299,7 @@ exports.getPortal = function(req, res) {
 exports.getNewAnalysis = function(req, res) {
   res.render('account/analysis', {
     title: 'New Analysis',
-    configurations: { 
+    configurations: {
       "KNN": {
         "kNN": {
           "type": "Integer",
@@ -377,6 +378,8 @@ exports.postAnalysis = function(req, res) {
   var num = 0;
   var exec = req.body.algorithm;
   var params = "";
+  var json = {};
+  console.log('**************');
   console.log(req.body);
   console.log('user: '+userid);
   async.series([
@@ -399,19 +402,36 @@ exports.postAnalysis = function(req, res) {
     },
     function(cbAsync){
       console.log('command: mkdir '+dir.trim()+num.toString().trim());
-      shell.exec('mkdir mkdir '+dir.trim()+num.toString().trim(), function(code, output) {
+      shell.exec('mkdir '+dir.trim()+num.toString().trim(), function(code, output) {
+        console.log('Exit code:', code);
+        console.log('Program output:', output);
+        json = {
+          user: userid,
+          task_name: num.toString().trim(),
+          t: 'jar',
+          p: '',
+          classifier: 'ZeroR.jar'
+        };
+        cbAsync();
+      });
+    },
+    function(cbAsync){
+      var configFile = '~/Desktop/bd2k/'+userid+'_'+num.toString().trim()+'.json';
+      var command = 'touch '+configFile+';echo \''+JSON.stringify(json)+'\'>>'+configFile;
+      console.log('command: '+command);
+      shell.exec(command, function(code, output) {
         console.log('Exit code:', code);
         console.log('Program output:', output);
         cbAsync();
-
       });
     },
     function(cbAsync){
       var script = '../scripts/submit.sh';
-      var command = 'sh '+script+' -u '+userid.toString()+' -n '+num.toString().trim()+' -t jar -p '+params+' '+ exec;
+      var jar = '../jars/ZeroR.jar';
+      var command = 'bash '+script+' -u '+userid.toString()+' -n '+num.toString().trim()+' -t jar '+params+' '+ jar;
       var done = '~/Desktop/bd2k/'+req.user._id.toString().trim()+'/'+num.toString().trim()+'/done';
       var sleep = 'sleep 20;touch '+done;
-      console.log('command: '+sleep);
+      console.log('command: '+command);
       shell.exec(sleep, function(code, output) {
         console.log('Exit code:', code);
         console.log('Program output:', output);
@@ -448,11 +468,19 @@ exports.getAnalysis = function(req, res) {
         console.log('Exit code:', code);
         console.log('Program output:', output);
         if(code==0){
-          var arr = [[1,2,3],[4,5,6]];
+          var array = fs.readFileSync('../jars/Output.tsv').toString().split("\n");
+          var headers = array[0];
+          var results = [];
+          for(var i = 1; i < array.length; i++) {
+              var tokens = array[i].split('\t');
+              results.push(tokens);
+          }
+          console.log(results);
           res.render('account/results', {
             title: 'Analysis Results',
             taskid: id,
-            data: arr
+            head: headers,
+            result: results
           });
         }else{
           res.render('account/analyzing', {
