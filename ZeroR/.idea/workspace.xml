@@ -31,8 +31,8 @@
       <file leaf-file-name="ZeroR_run.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ZeroR_run.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62995595">
-              <caret line="76" column="52" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.15418503">
+              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,7 +151,7 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jars" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
@@ -620,12 +620,12 @@
       <workItem from="1447978461129" duration="4611000" />
       <workItem from="1448047362424" duration="189000" />
       <workItem from="1448047822549" duration="27000" />
-      <workItem from="1448052316847" duration="23000" />
+      <workItem from="1448052316847" duration="898000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4850000" />
+    <option name="totallyTimeSpent" value="5725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="63" width="1468" height="836" extended-state="0" />
@@ -700,8 +700,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ZeroR_run.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62995595">
-          <caret line="76" column="52" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.15418503">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -81,7 +81,7 @@ public class DecisionTreeRunner {
             for (int i=0; i<(Integer)res.get("numIterations"); i++){
                 eval.crossValidateModel(j48, data, (Integer)res.get("numCVFolds"), new Random());
                 double accuracy = (eval.correct()) / (eval.correct() + eval.incorrect());
-                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
+                writer.println(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
                         res.get("analysisName"),
                         i,
                         eval.correct(),
