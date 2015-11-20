@@ -52,6 +52,13 @@ block content
                     select.form-control(name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
                       each choice in value.options
                         option=choice      
+              when "Float"
+                .form-group
+                  label.col-sm-3.control-label(for='#{classifier}_#{value_name}') #{value_name}
+                  .col-sm-2
+                    input.form-control(type='number' step='any' name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
+
+
       .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
