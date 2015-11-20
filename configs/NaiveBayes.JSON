@@ -1,0 +1,10 @@
+{
+  "useKernelEstimator": {
+    "type": "Boolean",
+    "description": "Use a kernel estimator for numeric attributes rather than a normal distribution"
+  },
+  "useSupervisedDiscretization": {
+    "type": "Float",
+    "description": "Use supervised discretization to convert numeric attributes to nominal ones."
+  }
+}

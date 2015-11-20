@@ -1,0 +1,14 @@
+{
+  "support": {
+  	"type": "Float",
+  	"description": "Minimum support"
+  },
+  "confidence": {
+  	"type": "Float",
+  	"description": "Confidence"
+  },
+  "numofRules": {
+  	"type": "Integer",
+  	"description": "Confidence"
+  }
+}

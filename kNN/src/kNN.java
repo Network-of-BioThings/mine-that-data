@@ -98,7 +98,7 @@ public class kNN {
             int classIndex = res.get("targetClassIndex");
 
             PrintWriter writer = new PrintWriter("Output.tsv", "UTF-8");
-            writer.println("Analysis name\tRun\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg");
+            writer.println("Analysis name\tRun\tNumber_correct\tNumber_incorrect\tAccuracy\troot_mean_squared_error\tmean_squared_error\tnum_true_pos\tnum_true_neg\tnum_false_pos\tnum_false_neg\tAUC");
             for (int i=0; i<(Integer)res.get("numIterations"); i++){
                 eval.crossValidateModel(knn, data, (Integer)res.get("numCVFolds"), new Random());
                 double accuracy = (eval.correct()) / (eval.correct() + eval.incorrect());
@@ -113,7 +113,8 @@ public class kNN {
                         eval.numTruePositives(classIndex),
                         eval.numTrueNegatives(classIndex),
                         eval.numFalsePositives(classIndex),
-                        eval.numFalseNegatives(classIndex)));
+                        eval.numFalseNegatives(classIndex),
+                        eval.areaUnderROC(classIndex)));
             }
             writer.close();
         }

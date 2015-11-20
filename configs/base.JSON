@@ -1,0 +1,18 @@
+{
+  "AnalysisName": {
+  	"type": "String",
+  	"description": "Name of the analysis"
+  },
+  "numIterations": {
+  	"type": "Float",
+  	"description": "Number of iterations to run"
+  },
+  "numCVFolds": {
+  	"type": "Integer",
+  	"description": "Number of folds of cross validation"
+  },
+  "targetClassIndex": {
+    "type": "Integer",
+    "description": "The class used for FPR, TPR, ..."
+  }
+}
