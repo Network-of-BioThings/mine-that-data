@@ -9,9 +9,8 @@ block content
         label.col-sm-3.control-label(for='algorithm') Algorithm
         .col-sm-2
           select.form-control(name='algorithm', id='algorithm')
-            option(id='a1') Algorithm 1
-            option(id='a2') Algorithm 2
-            option(id='a3') Algorithm 3
+            each configuration, classifier in configurations
+              option(id='a_#{classifier}') #{classifier}
       .form-group
         label.col-sm-3.control-label(for='description') Description
         .col-sm-7
@@ -30,18 +29,27 @@ block content
             - for (var i = 0; i < 1000; i+=10) {
                 option= i
             - }
-      .form-group
-        label.col-sm-3.control-label(for='location') Parameter 1
-        .col-sm-2
-          input.form-control(type='number', name='p1', id='p1')
-      .form-group
-        label.col-sm-3.control-label(for='website') Parameter 2
-        .col-sm-2
-          input.form-control(type='number', name='p2', id='p2')
-      .form-group
-        label.col-sm-3.control-label(for='website') Parameter 3
-        .col-sm-2
-          input.form-control(type='number', name='p3', id='p3')
+      each configuration, classifier in configurations
+        .paramtab(id='#{classifier}')
+          each value, value_name in configuration
+            case value.type
+              when "Integer"
+                .form-group
+                  label.col-sm-3.control-label(for='#{classifier}_#{value_name}') #{value_name}
+                  .col-sm-2
+                    input.form-control(type='number', name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
+              when "Boolean"
+                .form-group
+                  label.col-sm-3.control-label(for='#{classifier}_#{value_name}') #{value_name}
+                  .col-sm-2
+                    input.form-control(type='checkbox', name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
+              when "Select"
+                .form-group
+                  label.col-sm-3.control-label(for='#{classifier}_#{value_name}') #{value_name}
+                  .col-sm-2
+                    select.form-control(name='#{classifier}_#{value_name}', id='#{classifier}_#{value_name}')
+                      each choice in value.options
+                        option=choice      
       .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')

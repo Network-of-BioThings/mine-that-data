@@ -29,12 +29,12 @@ public class DecisionTreeRunner {
 
     public static void main(String[] args) throws Exception {
         ArgumentParser parser = ArgumentParsers.newArgumentParser("Decision tree runner");
-        parser.addArgument("-binarySplits").type(Boolean.class).help("Allow only binary splits").required(true);
-        parser.addArgument("-confidence").type(Float.class).help("Confidence factor").required(true);
-        parser.addArgument("-minNumObj").type(Integer.class).help("Minimum number of instances per leaf").required(true);
-        parser.addArgument("-numFolds").type(Integer.class).help("Determines the amount of data used for reduced-error pruning.  One fold is used for pruning, the rest for growing the tree.").required(true);
-        parser.addArgument("-reducedErrorPruning").type(Boolean.class).help("Whether reduced-error pruning is used instead of C.4.5 pruning.").required(true);
-        parser.addArgument("-subTreeRaising").type(Boolean.class).help(" Whether to consider the subtree raising operation when pruning.").required(true);
+//        parser.addArgument("-binarySplits").type(Boolean.class).help("Allow only binary splits").required(true);
+//        parser.addArgument("-confidence").type(Float.class).help("Confidence factor").required(true);
+//        parser.addArgument("-minNumObj").type(Integer.class).help("Minimum number of instances per leaf").required(true);
+//        parser.addArgument("-numFolds").type(Integer.class).help("Determines the amount of data used for reduced-error pruning. One fold is used for pruning, the rest for growing the tree.").required(true);
+//        parser.addArgument("-reducedErrorPruning").type(Boolean.class).help("Whether reduced-error pruning is used instead of C.4.5 pruning.").required(true);
+//        parser.addArgument("-subTreeRaising").type(Boolean.class).help(" Whether to consider the subtree raising operation when pruning.").required(true);
         parser.addArgument("-unpruned").type(Boolean.class).help("Whether pruning is performed.").required(true);
         parser.addArgument("-useLaplace").type(Boolean.class).help("Whether counts at leaves are smoothed based on Laplace.").required(true);
 
