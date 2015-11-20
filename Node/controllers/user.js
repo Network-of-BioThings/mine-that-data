@@ -382,10 +382,12 @@ exports.getAnalysis = function(req, res) {
         console.log('Exit code:', code);
         console.log('Program output:', output);
         if(code==0){
-          res.render('account/results'), {
+          var arr = [[1,2,3],[4,5,6]];
+          res.render('account/results', {
             title: 'Analysis Results',
-            taskid: id
-          };
+            taskid: id,
+            data: arr
+          });
         }else{
           res.render('account/analyzing', {
             title: 'Analyzing',

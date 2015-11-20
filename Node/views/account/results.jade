@@ -1,5 +1,42 @@
-extends ../layout
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='csrf-token', content=_csrf)
+    title #{title} - Mine That Data
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css')
+    script(src='//code.jquery.com/jquery-1.11.3.min.js')
+    script(src='//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js')
+    script(src='//cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js')
+    link(rel='stylesheet', href='/css/main.css')
+    script.
+        $(document).ready(function() {
+        $('#results').DataTable();
+        } );
+  body
+    include ../partials/header
+    .page-header
+      h3(style='text-align:center') Results for Task #{taskid}
+    .container
+      div.dataTables_wrapper.center-block.col-sm-10
+        table.table.table-striped.table-bordered(id='results')
+          thead
+            tr
+              th First
+              th Second
+              th Third
+          tbody
+            - var objects = [{p1:1, p2:2, p3:3},{p1:4, p2:5, p3:6}]
+            - for (var i = 0; i < objects.length; i+=1)
+                tr
+                  th=objects[i].p1
+                  th=objects[i].p2
+                  th=objects[i].p3
 
-block content
-  .page-header
-    h3(style='text-align:center') Results for Task #{taskid}
+
+      include ../partials/flash
+
+    include ../partials/footer
