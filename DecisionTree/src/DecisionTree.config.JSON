@@ -1,0 +1,35 @@
+{ "DecisionTree": {
+    "binarySplits": {
+      "type": "Boolean",
+      "description": "Allow only binary splits"
+    },
+    "confidence": {
+      "type": "Float",
+      "description": "Confidence factor."
+    },
+    "minNumObj": {
+      "type": "Integer",
+      "description": "Minimum number of instances per leaf"
+    },
+    "numFolds":{
+      "type": "Integer",
+      "description": "Determines the amount of data used for reduced-error pruning. One fold is used for pruning, the rest for growing the tree."
+    },
+    "reducedErrorPruning": {
+      "type": "Boolean",
+      "description": "Whether reduced-error pruning is used instead of C.4.5 pruning."
+    },
+    "subTreeRaising":{
+      "type": "Boolean",
+      "description": "Whether to consider the subtree raising operation when pruning."
+    },
+    "unpruned":{
+      "type": "Boolean",
+      "description": "Whether pruning is performed"
+    },
+    "useLaplace":{
+      "type": "Boolean",
+      "description": "Whether counts at leaves are smoothed based on Laplace"
+    }
+  }
+}
