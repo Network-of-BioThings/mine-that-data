@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CAR:jar">
+    <output-path>$PROJECT_DIR$/../jars</output-path>
+    <root id="archive" name="CAR.jar">
+      <element id="module-output" name="CAR" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/weka-3-7-7/weka-src.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/classassociationrules-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/weka-3-7-7/weka.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/sourceforge/argparse4j/argparse4j/0.6.0/argparse4j-0.6.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
