@@ -300,7 +300,7 @@ exports.getNewAnalysis = function(req, res) {
   res.render('account/analysis', {
     title: 'New Analysis',
     configurations: {
-      "KNN": {
+      "kNN": {
         "kNN": {
           "type": "Integer",
           "bounds": {
@@ -374,7 +374,7 @@ function getJarParams(req){
   for (var value in details){
     retStr = retStr + " -" + value + " "  + req.body[req.body.algorithm + "_" + value];
   }
-  retStr = retStr + "-numCVFolds 10 -analysisName Test_name -targetClassIndex 0 -dataFile example_input.csv";
+  retStr = retStr + "-numCVFolds 10 -numIterations 10 -analysisName Test_name -targetClassIndex 0 -dataFile example_input.csv";
   console.log(retStr);
   return retStr;
 }
